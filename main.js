@@ -146,12 +146,16 @@ module.exports = (course, stepCallback) => {
     /********************************************** 
      *                 START HERE                 *
      **********************************************/
-    beginProcess((beginProcessErr) => {
-        if (beginProcessErr) {
-            course.error(beginProcessErr);
-            stepCallback(null, course);
-        }
+    if (course.settings.moduleSubHeaders) {
+        beginProcess((beginProcessErr) => {
+            if (beginProcessErr) {
+                course.error(beginProcessErr);
+                stepCallback(null, course);
+            }
 
+            stepCallback(null, course);
+        });
+    } else {
         stepCallback(null, course);
-    });
+    }
 };

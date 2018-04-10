@@ -1,24 +1,25 @@
-# Child Module Title
-### *Package Name*: child-module-title
-### *Child Type*: <post/pre import>
-### *Platform*: <online/pathway/campus/all> (Ask Zach or Daniel about this)
-### *Required*: <Required/Recommended/Optional> (Ask Zach or Daniel about this)
+# generate-headers
+### *Package Name*: generate-headers
+### *Child Type*: post import
+### *Platform*: Online
+### *Required*: Required
 
-This child module is built to be used by the Brigham Young University - Idaho D2L to Canvas Conversion Tool. It utilizes the standard `module.exports => (course, stepCallback)` signature and uses the Conversion Tool's standard logging functions. You can view extended documentation [Here](https://github.com/byuitechops/d2l-to-canvas-conversion-tool/tree/master/documentation).
+This child module is built to be used by the Brigham Young University - Idaho D2L to Canvas Conversion Tool. It utilizes the standard `module.exports => (course, stepCallback)` signature and uses the Conversion Tool's standard logging functions. You can view extended documentation [here](https://github.com/byuitechops/d2l-to-canvas-conversion-tool/tree/master/documentation).
 
 ## Purpose
 
-Describe the reason why this child module exists, and its goals.
+The main purpose of this child module is to implement three SubHeaders (Beginning of Week, Middle of Week and End of Week) into each week or lesson module. It excludes all of the Resources modules. 
+
 
 ## How to Install
 
 ```
-npm install my-child-module
+npm install generate-headers
 ```
 
 ## Run Requirements
 
-List any necessary requirements, such as fields on the `course.info` object. Include if it needs to run first, last, or similar stipulations. 
+This child module will only execute if `course.settings.moduleSubHeaders` is true
 
 ## Options
 
@@ -26,33 +27,27 @@ If there are options that need to be set before the module runs, include them in
 
 | Option | Values | Description |
 |--------|--------|-------------|
-|Create Lesson Folders| true/false | Determines if lesson folders should be created inside of "documents" and "media."|
-|Remove Course Image| true/false | Determines if the course image will be removed. |
+|moduleSubHeaders| true/false | Determines whether the Module SubHeaders should be implemented in the course|
 
 ## Outputs
 
-If your module adds anything to `course.info` or anywhere else on the course object, please include a description of each in a table:
-
-| Option | Type | Location |
-|--------|--------|-------------|
-|Lesson Folders| Array | course.info|
+None as of this moment.
 
 ## Process
 
 Describe in steps how the module accomplishes its goals.
 
-1. Does this thing
-2. Does that thing
-3. Does that other thing
+1. It makes an Canvas API call to retrieve all of the modules in the course.
+2. It will filter out all of the unnecessary modules and then iterate through each module.
+3. Inside each iteration, it will create three SubHeaders at the bottom of the module.
 
 ## Log Categories
 
 List the categories used in logging data in your module.
 
-- Discussions Created
-- Canvas Files Deleted
-- etc.
+- module: the specific module the SubHeader is being built into
+- header: the name of the SubHeader built into the module
 
 ## Requirements
 
-These are the expectations for the child module. What does it need to do? What is the "customer" wanting from it? 
+In every Weekly or Lesson module (excluding all Resources modules or something similar), three SubHeaders (Beginning of Week, Middle of Week and End of Week) is to be built into the module at the bottom. Another employee will manually move the SubHeaders to the correct location in the module. This simply just creates the SubHeaders.
