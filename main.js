@@ -90,18 +90,20 @@ module.exports = (course, stepCallback) => {
     * logs the results.
     ****************************************************/
     function headerFactory(module, headerFactoryCallback) {
+        //the headers array is in reverse order since canvas reverses them if 
+        //you use same position
         var headers = [
-            'Beginning of Week',
-            'Middle of Week',
             'End of Week',
+            'Middle of Week',
+            'Beginning of Week',
         ];
 
         //iterate through headers
-        asyncLib.each(headers, (header, eachCallback) => {
+        asyncLib.eachSeries(headers, (header, eachSeriesCallback) => {
             //call buildHeader to create the header
             buildHeader(header, 99, module.id, (buildHeaderErr) => {
                 if (buildHeaderErr) {
-                    eachCallback(buildHeaderErr);
+                    eachSeriesCallback(buildHeaderErr);
                     return;
                 }
 
@@ -109,7 +111,8 @@ module.exports = (course, stepCallback) => {
                     'module': module.name,
                     'header': header,
                 });
-                eachCallback(null);
+
+                eachSeriesCallback(null);
             });
         }, (eachOfErr) => {
             if (eachOfErr) {
@@ -146,7 +149,9 @@ module.exports = (course, stepCallback) => {
     /********************************************** 
      *                 START HERE                 *
      **********************************************/
-    if (course.settings.moduleSubHeaders) {
+    course.settings.moduleSubHeaders = true;
+    
+     if (course.settings.moduleSubHeaders) {
         beginProcess((beginProcessErr) => {
             if (beginProcessErr) {
                 course.error(beginProcessErr);
