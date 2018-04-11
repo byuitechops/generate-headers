@@ -149,8 +149,6 @@ module.exports = (course, stepCallback) => {
     /********************************************** 
      *                 START HERE                 *
      **********************************************/
-    course.settings.moduleSubHeaders = true;
-    
      if (course.settings.moduleSubHeaders) {
         beginProcess((beginProcessErr) => {
             if (beginProcessErr) {
