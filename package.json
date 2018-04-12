@@ -1,7 +1,7 @@
 {
-  "name": "child-template",
+  "name": "generate-headers",
   "version": "1.0.0",
-  "description": "Put your child module's description here",
+  "description": "Generate beginning, middle, and end of week module headers",
   "main": "main.js",
   "dependencies": {
     "canvas-wrapper": "github:byuitechops/canvas-wrapper"
@@ -17,13 +17,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/byuitechops/child-template.git"
+    "url": "git+https://github.com/byuitechops/generate-headers.git"
   },
-  "author": "Zachary Williams, Daniel Green",
+  "author": "Sam McGrath",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/byuitechops/child-template/issues"
+    "url": "https://github.com/byuitechops/generate-headers/issues"
   },
-  "homepage": "https://github.com/byuitechops/child-template#readme",
+  "homepage": "https://github.com/byuitechops/generate-headers#readme",
   "childType": "postImport"
 }
