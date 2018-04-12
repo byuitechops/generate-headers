@@ -7,15 +7,15 @@ const asyncLib = require('async');
 module.exports = (course, stepCallback) => {
 
     /****************************************************
-    * buildHeader()
-    * 
-    * @param headerName - str
-    * @param position - int
-    * 
-    * Purpose: This function receives the name
-    * of the text header to create and builds one
-    * inside the instructor module
-    ****************************************************/
+     * buildHeader()
+     * 
+     * @param headerName - str
+     * @param position - int
+     * 
+     * Purpose: This function receives the name
+     * of the text header to create and builds one
+     * inside the instructor module
+     ****************************************************/
     function buildHeader(headerName, position, moduleId, buildHeaderCallback) {
         canvas.post(`/api/v1/courses/${course.info.canvasOU}/modules/${moduleId}/items`, {
             'module_item': {
@@ -34,12 +34,12 @@ module.exports = (course, stepCallback) => {
     }
 
     /****************************************************
-    * retrieveModule()
-    * 
-    * Purpose: This function simply makes an API call
-    * to retrieves all of the modules. The modules return
-    * as an array and is passed to the next function.
-    ****************************************************/
+     * retrieveModule()
+     * 
+     * Purpose: This function simply makes an API call
+     * to retrieves all of the modules. The modules return
+     * as an array and is passed to the next function.
+     ****************************************************/
     function retrieveModule(retrieveModuleCallback) {
         canvas.get(`/api/v1/courses/${course.info.canvasOU}/modules`, (getErr, modules) => {
             if (getErr) {
@@ -52,12 +52,12 @@ module.exports = (course, stepCallback) => {
     }
 
     /****************************************************
-    * constructHeaders()
-    * 
-    * Purpose: This function goes through and calls 
-    * headerFactory for each module. The headerFactory
-    * does the dirty work for this function.
-    ****************************************************/
+     * constructHeaders()
+     * 
+     * Purpose: This function goes through and calls 
+     * headerFactory for each module. The headerFactory
+     * does the dirty work for this function.
+     ****************************************************/
     function constructHeaders(allModules, constructHeadersCallback) {
         var modules = allModules.filter(module => /(Week|Lesson|L|W)\s*(\d+(\D|$))/gi.test(module.name));
 
@@ -83,12 +83,12 @@ module.exports = (course, stepCallback) => {
     }
 
     /****************************************************
-    * headerFactory()
-    * 
-    * Purpose: This function takes in a module and creates
-    * three headers at the bottom of the module and then
-    * logs the results.
-    ****************************************************/
+     * headerFactory()
+     * 
+     * Purpose: This function takes in a module and creates
+     * three headers at the bottom of the module and then
+     * logs the results.
+     ****************************************************/
     function headerFactory(module, headerFactoryCallback) {
         //the headers array is in reverse order since canvas reverses them if 
         //you use same position
@@ -125,11 +125,11 @@ module.exports = (course, stepCallback) => {
     }
 
     /****************************************************
-    * beginProcess()
-    * 
-    * Purpose: This function acts as a driver for the 
-    * program.
-    ****************************************************/
+     * beginProcess()
+     * 
+     * Purpose: This function acts as a driver for the 
+     * program.
+     ****************************************************/
     function beginProcess(beginProcessCallback) {
         var functions = [
             retrieveModule,
@@ -149,16 +149,13 @@ module.exports = (course, stepCallback) => {
     /********************************************** 
      *                 START HERE                 *
      **********************************************/
-     if (course.settings.moduleSubHeaders) {
-        beginProcess((beginProcessErr) => {
-            if (beginProcessErr) {
-                course.error(beginProcessErr);
-                stepCallback(null, course);
-            }
 
+    beginProcess((beginProcessErr) => {
+        if (beginProcessErr) {
+            course.error(beginProcessErr);
             stepCallback(null, course);
-        });
-    } else {
+        }
+
         stepCallback(null, course);
-    }
+    });
 };
